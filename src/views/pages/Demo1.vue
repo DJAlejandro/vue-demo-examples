@@ -1,6 +1,19 @@
 <template>
     <div>
         <h2>插槽的使用</h2>
+        <p class="d-flex p-2">1.利用事件间参数，复用打开和关闭按钮</p>
+        <p class="d-flex p-2">2.在组件内使用插槽</p>
+        <p>
+            <a href="https://codepen.io/djalejandro/pen/ymRPRq">代码</a>
+            <iframe
+                style="width: 100%; height: 400px"
+                src="https://codepen.io/djalejandro/pen/ymRPRq"
+                allowfullscreen="allowfullscreen"
+                frameborder="0"
+                class="loading"
+            ></iframe>
+        </p>
+        <h2>案例演示</h2>
         <header class="app-head">
             <div class="app-head-inner">
                 <div class="head-nav">
@@ -10,8 +23,13 @@
 
                         <li @click="openDialog('isRegister')">注册</li>
                         <li class="nav-pile">|</li>
-
                         <li @click="openDialog('isAbout')">关于</li>
+                        <li class="nav-pile">|</li>
+                        <li @click="openDialog('isTest1')">无参数</li>
+                        <li class="nav-pile">|</li>
+                        <li @click="openDialog('isTest2')">一个参数</li>
+                        <li class="nav-pile">|</li>
+                        <li @click="openDialog('isTest3')">两个参数</li>
                     </ul>
                 </div>
             </div>
@@ -24,8 +42,17 @@
             <reg></reg>
         </my-dialog>
 
-        <my-dialog :is-show="isAbout" @close-dialog="closeDialog('isAbout')">
-            <p>本报告在调研数据的基础上，采用定性与定量相结合的方式深入分析了专车市场发展的驱动因素与阻碍因素、专车市场背后的产业格局、专车企业的竞争格局、用户对专车市场的依赖程度、专车对其他交通工具运力的补充效应等，通过这五个章节的研究反映专车市场的发展态势和面临的问题。报告力求客观、深入、准确地反映中国专车市场发展情况，为政府、企事业单位和社会各界提供决策依据。</p>
+        <my-dialog :is-show="isAbout" @close-dialog="closeDialog('isAbout')" @click.native="change">
+            <p>组件的根元素能够直接监听到组件所处位置的本地事件。在这种场景中，你可以在 v-on 上使用 .native 修饰符</p>
+        </my-dialog>
+        <my-dialog :is-show="isTest1" @emit-test="emitTest1">
+            <p>组件自定义事件：无参数。注册方法接受一个参数，为自定义事件传递的数据</p>
+        </my-dialog>
+        <my-dialog :is-show="isTest2" @emit-test="emitTest2('evenName')">
+            <p>组件自定义事件：一个参数。注册方法接受一个参数，为该方法传入的参数值</p>
+        </my-dialog>
+        <my-dialog :is-show="isTest3" @emit-test="emitTest3('evenName',$event)">
+            <p>组件自定义事件：两个参数。注册方法接受两个参数，前者为该方法传入的参数值，后者为自定义事件传递的数据</p>
         </my-dialog>
     </div>
 </template>
@@ -41,7 +68,10 @@ export default {
             isShow: false,
             isLog: false,
             isRegister: false,
-            isAbout: false
+            isAbout: false,
+            isTest1: false,
+            isTest2: false,
+            isTest3: false
         };
     },
     components: {
@@ -55,6 +85,21 @@ export default {
         },
         closeDialog(attr) {
             this[attr] = false;
+        },
+        emitTest1(attr) {
+            this.isTest1 = false;
+            console.log(attr);
+        },
+        emitTest2(attr) {
+            this.isTest2 = false;
+            console.log(attr);
+        },
+        emitTest3(attr, $event) {
+            this.isTest3 = false;
+            console.log(attr, $event);
+        },
+        change() {
+            alert(".native 修饰符");
         }
     }
 };

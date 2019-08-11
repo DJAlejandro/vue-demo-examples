@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <div id="nav">
-            <router-link :size="20" to="/">Home</router-link>
+            <router-link :size="20" to="/">首页</router-link>
         </div>
         <router-view />
     </div>

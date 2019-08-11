@@ -1,5 +1,19 @@
 <template>
     <div>
+        <h2>幻灯片的使用</h2>
+        <p class="d-flex p-2">1.利用过渡特效实现</p>
+        <p class="d-flex p-2">2.两个过渡元素，因不同的赋值时机，得到不同的索引值</p>
+        <p>
+            <a href="https://codepen.io/djalejandro/pen/bXmapM">代码</a>
+            <iframe
+                style="width: 100%; height: 400px"
+                src="https://codepen.io/djalejandro/pen/bXmapM"
+                allowfullscreen="allowfullscreen"
+                frameborder="0"
+                class="loading"
+            ></iframe>
+        </p>
+        <h2>案例演示</h2>
         <slide :slides="slides" :setTime="setTime"></slide>
     </div>
 </template>
