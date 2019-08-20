@@ -74,7 +74,6 @@ export default {
 };
 </script>
 
-
 <style scoped>
 .slide-trans-enter-active {
     transition: all 0.5s;
